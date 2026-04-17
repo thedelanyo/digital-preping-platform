@@ -25,6 +25,27 @@
 
 <Meta />
 
-{@render children()}
+<main class="system">
+  {@render children()}
+</main>
 
 <Toaster />
+
+<style>
+  main {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding: 2.5rem var(--gap-base);
+    margin: 0 auto;
+  }
+
+  @media (min-width: 769px) {
+    main {
+      gap: 6rem;
+      padding-inline: 1rem;
+      margin: 0 auto;
+    }
+  }
+</style>

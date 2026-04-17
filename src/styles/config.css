@@ -109,6 +109,6 @@
   --gap-xxl: 10rem;
 
   font-family: var(--font-family);
-  font-size: clamp(0.9rem, 0.9rem + 0.7svw, 1.1rem);
+  font-size: clamp(0.9rem, 1rem + 0.8svw, 1.5rem);
   font-weight: normal;
 }

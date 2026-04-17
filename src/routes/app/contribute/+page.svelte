@@ -1,5 +1,6 @@
 <script lang="ts">
   import Main from "$components/layouts/main.svelte";
+  import MCQ from "$components/modals/mcq.svelte";
   import Svg from "$components/modals/svg.svelte";
   import { prep, questions } from "$db/schema/preps.js";
   import { courses } from "$lib/client/courses";
@@ -10,14 +11,20 @@
 
   let { data } = $props();
 
+  let { creator } = $derived(data);
+
   let topics = $derived(getTopics($prep.course_id));
 
-  const load = (_: any) => {
-    const id = generateId();
-    const creator_id = generateId();
-    const creator_name = "";
+  let toggle = $state("");
 
-    $prep = getLocalData("prep", { ...$prep, id, creator_id, creator_name });
+  const load = (_: any) => {
+    $prep = getLocalData("prep", {
+      ...$prep,
+      id: generateId(),
+      creator_id: creator.id,
+      creator_name: creator.name,
+    });
+
     $questions = getLocalData("questions", []);
 
     $effect(() => {
@@ -71,7 +78,9 @@
       </select>
     </div>
 
-    <button class="ghost">add prep MCQs</button>
+    <button class="ghost" onclick={() => (toggle = "mcq")}>
+      add prep MCQs - ({$questions.length})
+    </button>
 
     <div class="footer">
       <a href="/" class="ghost">
@@ -91,11 +100,16 @@
           name="questions"
           value={JSON.stringify(questions)}
         />
-        <button>preview</button>
       </form>
+
+      <button>preview</button>
     </div>
   </section>
 </Main>
+
+{#if toggle === "mcq"}
+  <MCQ bind:toggle />
+{/if}
 
 <style>
   section {

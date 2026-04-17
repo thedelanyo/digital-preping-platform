@@ -1,5 +1,7 @@
-import type { PageServerLoad } from "./$types";
+import { generateId } from "$lib/helpers/id";
 
-export const load = (async () => {
-  return {};
-}) satisfies PageServerLoad;
+export const load = async () => {
+  const creator = { name: "Delator Agbenyo", id: generateId() };
+
+  return { creator };
+};

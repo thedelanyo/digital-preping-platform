@@ -23,7 +23,7 @@ form > div {
 input,
 textarea,
 select {
-  padding: var(--gap-smallest) var(--gap-small);
+  padding: var(--gap-micro) var(--gap-small);
   border-radius: var(--radius-medium);
   display: block;
   background-color: inherit;
@@ -34,7 +34,7 @@ select {
 }
 
 textarea {
-  min-height: 5rem;
+  min-height: 4rem;
   max-width: 100%;
   field-sizing: content;
 }
@@ -112,11 +112,9 @@ textarea::-webkit-scrollbar-thumb {
   flex-direction: row !important;
   border: var(--border);
   border-radius: var(--radius-base);
-  font-size: 1.2rem;
 }
 
 .inline-control > * {
-  padding: var(--gap-small);
   border-radius: 0;
 }
 
@@ -140,8 +138,7 @@ textarea::-webkit-scrollbar-thumb {
   height: 100%;
   width: 4rem;
   border-radius: 0 var(--radius-base) var(--radius-base) 0;
-  padding-block: var(--gap-base);
-
+  padding-block: var(--gap-smallest);
 }
 
 .radio {
@@ -210,7 +207,7 @@ button,
   align-items: center;
   justify-content: center;
   gap: var(--gap-micro);
-  padding: var(--gap-smallest);
+  padding: var(--gap-micro) var(--gap-smallest);
   font-weight: normal;
   position: relative;
   border-radius: var(--radius-base);

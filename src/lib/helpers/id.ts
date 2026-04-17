@@ -6,5 +6,5 @@ export const generateId = () => {
 
   const ids = shuffle([...now, ...id]);
 
-  return ids.join("").slice(0, 20);
+  return ids.join("").slice(0, 25);
 };

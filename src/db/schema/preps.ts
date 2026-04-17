@@ -27,9 +27,9 @@ export const prepInit = {
 export const prep = writable(prepInit);
 
 type Question = {
-  title: "";
-  options: [];
-  answer_code: 0;
+  title: string;
+  options: string[];
+  answer_code: number;
 };
 
 export const questions = writable<Question[]>([]);

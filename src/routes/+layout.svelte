@@ -17,7 +17,6 @@
       document.startViewTransition &&
         document.startViewTransition(async () => {
           resolve();
-          // await navigation.complete;
         });
     });
   });

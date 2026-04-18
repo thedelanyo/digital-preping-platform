@@ -13,8 +13,6 @@ export const prep_cards = sqliteTable("prep_cards", {
   topic: text("topic").default("").notNull(),
 });
 
-export type PrepCards = typeof prep_cards.$inferSelect;
-
 type Question = {
   title: string;
   options: string[];
@@ -30,5 +28,7 @@ export const prepInit = {
   topic: "",
   questions: [] as Question[],
 };
+
+export type Prep = typeof prepInit;
 
 export const prep = writable(prepInit);

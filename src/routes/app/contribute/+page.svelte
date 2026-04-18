@@ -1,23 +1,28 @@
 <script lang="ts">
+  import { applyAction } from "$app/forms";
   import Main from "$components/layouts/main.svelte";
   import MCQ from "$components/modals/mcq.svelte";
   import Review from "$components/modals/review.svelte";
   import Svg from "$components/modals/svg.svelte";
   import { prep } from "$db/schema/preps.js";
   import { courses } from "$lib/client/courses";
-  import { arrowLeftIcons } from "$lib/client/icons.js";
+  import { arrowLeftIcons, pencilIcons } from "$lib/client/icons.js";
   import { getLocalData, setLocalData } from "$lib/client/local.js";
   import { generateId } from "$lib/helpers/id.js";
   import { getTopics } from "$lib/helpers/topic.js";
+  import type { SubmitFunction } from "@sveltejs/kit";
+  import toast from "svelte-hot-french-toast";
 
-  let { data } = $props();
+  let { data, form } = $props();
 
   let { creator } = $derived(data);
 
   let topics = $derived(getTopics($prep.course_id));
 
   let toggle = $state("");
+  let loading = $state(false);
   let step = $state(1);
+  let success = $state(false);
 
   const load = (_: any) => {
     $prep = getLocalData("prep", {
@@ -42,6 +47,20 @@
     const course = courses.find((c) => c.id == $prep.course_id);
     $prep.course_title = course?.title || "";
   };
+
+  const submit: SubmitFunction = () => {
+    if (loading) return;
+
+    loading = true;
+
+    return async ({ result }) => {
+      await applyAction(result);
+
+      form?.message && toast[form.state](form.message);
+      success = form?.state === "success";
+      loading = false;
+    };
+  };
 </script>
 
 <Main>
@@ -65,16 +84,17 @@
     <div>
       <select name="topics" id="topics" bind:value={$prep.topic}>
         <option value=""> -- Select topic for this course -- </option>
-        {#each topics as { title }}
-          <option value={title}>
-            {title}
+        {#each topics as topic}
+          <option value={topic}>
+            {topic}
           </option>
         {/each}
       </select>
     </div>
 
-    <button class="ghost" onclick={() => (toggle = "mcq")}>
-      add prep MCQs - ({$prep.questions.length})
+    <button class="ghost info" onclick={() => (toggle = "mcq")}>
+      <Svg ds={pencilIcons} dimension="30" />
+      <span>add prep MCQs - ({$prep.questions.length})</span>
     </button>
 
     <div class="footer">
@@ -85,7 +105,7 @@
 
       <button
         onclick={() => (toggle = "review")}
-        disabled={$prep.questions.length < 10}
+        disabled={$prep.questions.length < 1}
       >
         review
       </button>
@@ -98,12 +118,16 @@
 {/if}
 
 {#if toggle === "review"}
-  <Review bind:toggle bind:step />
+  <Review bind:toggle bind:step {submit} {loading} {success} />
 {/if}
 
 <style>
   section {
     margin-top: -1rem;
+  }
+
+  .ghost.info {
+    gap: 1rem;
   }
 
   .footer {

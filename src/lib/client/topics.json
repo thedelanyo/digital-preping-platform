@@ -1,0 +1,34 @@
+[
+  {
+    "id": "data_comm",
+    "data": [
+      "Networking",
+      "Signals and Data",
+      "OSI & TCP/IP",
+      "Error Handling",
+      "Digital Transmission",
+      "Routing",
+      "Addressing"
+    ]
+  },
+  {
+    "id": "multimedia",
+    "data": []
+  },
+  {
+    "id": "sys_analysis",
+    "data": []
+  },
+  {
+    "id": "comm_skills",
+    "data": []
+  },
+  {
+    "id": "architecture",
+    "data": []
+  },
+  {
+    "id": "af_studies",
+    "data": []
+  }
+]

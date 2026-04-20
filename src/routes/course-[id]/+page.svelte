@@ -1,9 +1,16 @@
 <script lang="ts">
+  import Preps from "$components/modals/preps.svelte";
+
   let { data } = $props();
 
-  let { id, title } = $derived(data.course);
+  let { course, preps } = $derived(data);
 </script>
 
 <section>
-  <h1>Prep Flashcards for {title}.</h1>
+  <div>
+    <h1>{course.title}.</h1>
+    <p>Click on any prep flashcard to start answering more questions on it.</p>
+  </div>
+
+  <Preps {preps} />
 </section>

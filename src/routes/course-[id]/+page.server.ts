@@ -1,4 +1,5 @@
 import { courses } from "$lib/client/courses.js";
+import { getPreps } from "$lib/server/preps.js";
 import { error } from "@sveltejs/kit";
 
 export const load = async ({ params }) => {
@@ -10,5 +11,7 @@ export const load = async ({ params }) => {
     error(404, message);
   }
 
-  return { course };
+  const preps = await getPreps({ course_id: course.id });
+
+  return { course, preps };
 };

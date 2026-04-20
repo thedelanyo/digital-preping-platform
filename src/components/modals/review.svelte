@@ -67,7 +67,7 @@
 
       <div class="flow-wide">
         <button class="ghost" onclick={resubmit}>submit again</button>
-        <a href="/prepping-{$prep.id}" class="button">view prep</a>
+        <a href="/prep-{$prep.id}" class="button">view prep</a>
       </div>
     </div>
   {:else}

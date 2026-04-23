@@ -3,12 +3,14 @@
     "id": "data_comm",
     "data": [
       "Networking",
-      "Signals and Data",
+      "Data & Signals",
       "OSI & TCP/IP",
       "Error Handling",
-      "Digital Transmission",
-      "Routing",
-      "Addressing"
+      "Transmission",
+      "Routing & Switching",
+      "Addressing",
+      "Bandwidth",
+      "Topologies"
     ]
   },
   {

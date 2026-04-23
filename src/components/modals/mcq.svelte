@@ -1,5 +1,6 @@
 <script>
   import { prep } from "$db/schema/preps";
+  import { MAX_PREPS } from "$lib/client/constants";
   import { trimSpaces } from "$lib/helpers/text";
   import toast from "svelte-hot-french-toast";
   import Drawer from "./drawer.svelte";
@@ -9,8 +10,6 @@
   let options = $state(["", "", ""]);
   let title = $state("");
   let answer_code = $state(0);
-
-  const max = 20;
 
   const onclick = () => {
     if (!title) {
@@ -30,8 +29,8 @@
       return;
     }
 
-    if ($prep.questions.length >= max) {
-      toast.error(`You can only add up to ${max} questions`);
+    if ($prep.questions.length >= MAX_PREPS) {
+      toast.error(`You can only add up to ${MAX_PREPS} questions`);
       return;
     }
 
@@ -56,7 +55,7 @@
     title = "";
     answer_code = 0;
 
-    toggle = $prep.questions.length === max ? "" : toggle;
+    toggle = $prep.questions.length === MAX_PREPS ? "" : toggle;
   };
 </script>
 

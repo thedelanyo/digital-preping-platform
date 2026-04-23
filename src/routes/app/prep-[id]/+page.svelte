@@ -14,6 +14,7 @@
   let current = $state(parseInt(page.url.searchParams.get("current") || "1"));
   let item = $derived($preppings.find(({ stage }) => stage === current));
   let selection = $derived<number | null>(item ? item.selection : null);
+  let length = $derived(data.preps.length + 1);
 
   const step = (direction: "L" | "R") => {
     if (direction === "R" && !item) {
@@ -22,7 +23,7 @@
     }
 
     direction === "L" && current !== 1 && current--;
-    direction === "R" && current !== data.preps.length && current++;
+    direction === "R" && current !== length && current++;
 
     goto(`?current=${current}`);
   };

@@ -2,15 +2,9 @@ import { tursoDB as db } from "$db/connections/turso";
 import { prep_cards as table } from "$db/schema/preps";
 import { and, eq, like, or, sql } from "drizzle-orm";
 
-type Params = {
-  course_id?: string;
-  creator_id?: string;
-  topic?: string;
-};
-
 const pageSize = 20;
 
-export const getPreps = async (data?: Params) => {
+export const getPreps = async (id: string) => {
   const selectors = {
     id: table.id,
     creator_name: table.creator_name,
@@ -19,9 +13,9 @@ export const getPreps = async (data?: Params) => {
   };
 
   const queries = or(
-    eq(table.course_id, `${data?.course_id || ""}`),
-    eq(table.creator_id, `${data?.creator_id || ""}`),
-    eq(table.topic, `${data?.topic || ""}`),
+    eq(table.course_id, id),
+    eq(table.creator_id, id),
+    eq(table.topic, id),
   );
 
   try {

@@ -14,7 +14,7 @@
 
     <div class="courses">
       {#each courses as { id, title }}
-        <a href="/course-{id}">
+        <a href="/preps?course={id}">
           <img src="/courses/{id}.webp" alt="" />
           <span class="title">{title}</span>
         </a>

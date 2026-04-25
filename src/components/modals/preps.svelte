@@ -39,6 +39,7 @@
       padding: 1.5rem 1rem;
       border-radius: var(--radius-base);
       font-size: 1.3rem;
+      width: 100%;
 
       a {
         color: currentColor;

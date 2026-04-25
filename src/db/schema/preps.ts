@@ -31,7 +31,13 @@ export const prepInit = {
 
 export type Prep = typeof prepInit;
 
-export type PrepAns = { stage: number; score: number; selection: number };
+type Preplet = {
+  preps: { stage: number; selection: number }[];
+  score: { totalCorrect: number; totalWrong: number };
+};
 
 export const prep = writable(prepInit);
-export const preppings = writable<PrepAns[]>([]);
+export const preplet = writable<Preplet>({
+  preps: [],
+  score: { totalCorrect: 0, totalWrong: 0 },
+});

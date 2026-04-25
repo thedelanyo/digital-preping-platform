@@ -2,8 +2,9 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
   import Main from "$components/layouts/main.svelte";
+  import Scorecard from "$components/modals/scorecard.svelte";
   import Svg from "$components/modals/svg.svelte";
-  import { preppings } from "$db/schema/preps.js";
+  import { preplet } from "$db/schema/preps.js";
   import { chevronLeftIcons, chevronRightIcons } from "$lib/client/icons.js";
   import { getLocalData, setLocalData } from "$lib/client/local.js";
   import toast from "svelte-hot-french-toast";
@@ -12,7 +13,7 @@
   let { data } = $props();
 
   let current = $state(parseInt(page.url.searchParams.get("current") || "1"));
-  let item = $derived($preppings.find(({ stage }) => stage === current));
+  let item = $derived($preplet.preps.find(({ stage }) => stage === current));
   let selection = $derived<number | null>(item ? item.selection : null);
   let length = $derived(data.preps.length + 1);
 
@@ -34,19 +35,27 @@
     const success = index === answer_code && selection === answer_code;
 
     success ? toast.success("Yay!") : toast.error("Oh noo");
-    $preppings = [...$preppings, { stage: current, selection, score: 0 }];
+
+    $preplet.preps = [...$preplet.preps, { stage: current, selection }];
+
+    preplet.update((prep) => {
+      success && prep.score.totalCorrect++;
+      !success && prep.score.totalWrong++;
+
+      return { ...prep };
+    });
   };
 
   const load = (_: any) => {
-    $preppings = getLocalData("preppings", $preppings);
+    $preplet = getLocalData("preplet", $preplet);
 
     $effect(() => {
-      preppings.subscribe((value) => {
-        setLocalData("preppings", value);
+      preplet.subscribe((value) => {
+        setLocalData("preplet", value);
       });
 
       return () => {
-        localStorage.removeItem("preppings");
+        localStorage.removeItem("preplet");
       };
     });
   };
@@ -59,21 +68,30 @@
 
       {#if index === current}
         <div class="prep" in:fly={{ x: -500 }}>
-          <div class="indicator">
-            Question {index} of {data.preps.length}
-          </div>
+          <div class="question">
+            <div>
+              Question {index} of {length}
+            </div>
 
-          <p class="question">
-            {question}
-          </p>
+            <p>
+              {question}
+            </p>
+          </div>
 
           <div class="options">
             {#each options as option, i}
               {@const ans = i === answer_code && selection === answer_code}
               {@const success = i === answer_code && selection !== null}
+              {@const danger = i !== answer_code && selection === i}
               {@const disabled = selection !== null}
               {@const checked = selection === i}
-              <label class="radio" for="opt_{i}" class:success class:ans>
+              <label
+                class="radio"
+                for="opt_{i}"
+                class:success
+                class:ans
+                class:danger
+              >
                 <input
                   {checked}
                   {disabled}
@@ -89,6 +107,10 @@
         </div>
       {/if}
     {/each}
+
+    {#if current === length}
+      <Scorecard />
+    {/if}
   </section>
 
   <div class="footer">
@@ -108,23 +130,17 @@
 <style>
   .prep {
     margin-top: -1rem;
-
-    gap: 2rem;
+    gap: 3rem;
 
     .question {
-      border: var(--border);
-      padding: var(--gap-small);
-      border-radius: var(--radius-large);
-      font-size: 1.5rem;
-    }
+      font-size: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
 
-    .indicator {
-      padding: var(--gap-micro);
-      border: var(--border);
-      width: max-content;
-      margin-bottom: -1rem;
-      border-radius: var(--radius-large);
-      font-size: 0.9rem;
+      div {
+        font-size: 0.9rem;
+      }
     }
 
     .options {

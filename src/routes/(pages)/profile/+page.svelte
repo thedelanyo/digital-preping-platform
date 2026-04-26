@@ -26,7 +26,7 @@
 </script>
 
 <section>
-  <h1>Welcome, {creator.id}</h1>
+  <h1>Welcome, {creator.name}</h1>
 </section>
 
 {#if !creator.id}

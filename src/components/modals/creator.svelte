@@ -20,13 +20,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 
     .ghost {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       padding: var(--gap-nano) var(--gap-base);
       border-radius: 2rem;
     }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
+  import { replaceState } from "$app/navigation";
   import { page } from "$app/state";
   import Main from "$components/layouts/main.svelte";
   import Scorecard from "$components/modals/scorecard.svelte";
@@ -28,7 +28,7 @@
     direction === "L" && current !== 1 && current--;
     direction === "R" && current !== length && current++;
 
-    goto(`?current=${current}`);
+    replaceState(`?current=${current}`, {});
   };
 
   const submit = (index: number, answer_code: number) => {
@@ -137,7 +137,7 @@
     gap: 3rem;
 
     .question {
-      font-size: 1.8rem;
+      font-size: 1.3rem;
       display: flex;
       flex-direction: column;
       gap: 1rem;

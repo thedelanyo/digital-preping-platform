@@ -51,7 +51,7 @@
       box-shadow: var(--shadow-inset);
       padding: 1rem;
       border-radius: var(--radius-base);
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       width: 100%;
 
       & > a {

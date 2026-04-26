@@ -1,21 +1,25 @@
 import { tursoDB as db } from "$db/connections/turso.js";
 import type { Prep } from "$db/schema/preps";
 import { prepTable as table } from "$db/schema/preps";
+import { generateId } from "$lib/helpers/id.js";
 import { trimSpaces } from "$lib/helpers/text.js";
 import { getCreator } from "$lib/server/creator.js";
 import { fail } from "@sveltejs/kit";
 
-export const load = async ({ cookies }) => {
-  const creator = getCreator(cookies);
-
-  return { creator };
-};
-
 export const actions = {
-  default: async ({ request }) => {
+  default: async ({ request, cookies }) => {
     const form = await request.formData();
     let state: "error" | "success" = "error";
     let message = "Successfully added preps";
+
+    const id = generateId();
+
+    const creator = getCreator(cookies);
+
+    if (!creator.id) {
+      message = "Visit profile page to save your name.";
+      return fail(400, { message, state });
+    }
 
     const prepStr = String(form.get("prep"));
 
@@ -38,16 +42,18 @@ export const actions = {
       .map(({ title, options, answer_code }, index) => {
         options = options.map((opt) => trimSpaces(opt)).filter((opt) => opt);
 
+        const is_first = index === 0;
+
         return {
-          id: `${index}:${prep.id}`,
+          id: `${index}:${id}`,
           question: trimSpaces(title),
           options,
           answer_code,
-          course_id,
-          course_title,
-          topics: index === 0 ? topics.join(",") : "",
-          creator_id: prep.creator_id,
-          creator_name: prep.creator_name,
+          course_id: is_first ? course_id : "",
+          course_title: is_first ? course_title : "",
+          topics: is_first ? topics.join(",") : "",
+          creator_id: is_first ? creator.id : "",
+          creator_name: is_first ? creator.name : "",
         };
       })
       .filter(({ question }) => question);

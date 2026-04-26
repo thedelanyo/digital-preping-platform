@@ -13,9 +13,7 @@
   import type { SubmitFunction } from "@sveltejs/kit";
   import toast from "svelte-hot-french-toast";
 
-  let { data, form } = $props();
-
-  let { creator } = $derived(data);
+  let { form } = $props();
 
   let toggle = $state("");
   let loading = $state(false);
@@ -23,12 +21,7 @@
   let success = $state(false);
 
   const load = (_: any) => {
-    $prep = getLocalData("prep", {
-      ...$prep,
-      id: generateId(),
-      creator_id: creator.id,
-      creator_name: creator.name,
-    });
+    $prep = getLocalData("prep", { ...$prep, id: generateId() });
 
     $effect(() => {
       prep.subscribe((value) => {

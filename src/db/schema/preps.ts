@@ -21,11 +21,8 @@ type Question = {
 };
 
 export const prepInit = {
-  id: "",
   course_id: "",
   course_title: "",
-  creator_name: "",
-  creator_id: "",
   topics: [] as string[],
   questions: [] as Question[],
 };

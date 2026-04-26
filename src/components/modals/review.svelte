@@ -67,7 +67,15 @@
 
       <div class="flow-wide">
         <button class="ghost" onclick={resubmit}>submit again</button>
-        <a href="/app/prep-{$prep.id}" class="button">view prep</a>
+        <a
+          href="/prep-{$prep.id}"
+          class="button"
+          onclick={() => {
+            localStorage.removeItem("prep");
+          }}
+        >
+          view prep
+        </a>
       </div>
     </div>
   {:else}

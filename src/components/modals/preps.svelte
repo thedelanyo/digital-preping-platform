@@ -18,7 +18,7 @@
     {@const [, prepId] = id.split(":")}
     {@const creator = `${creator_id}:${creator_name}`}
     <div>
-      <a href="/app/prep-{prepId}?creator={creator}">1. {question}</a>
+      <a href="/prep-{prepId}?creator={creator}">1. {question}</a>
       <Creator {prepId} {creator} />
     </div>
   {/each}

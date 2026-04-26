@@ -44,7 +44,7 @@
     <Svg ds={hamburgerIcons} />
   </button>
   {#if dev}
-    <a class="button" href="/app/contribute">contribute</a>
+    <a class="button" href="/contribute">contribute</a>
   {/if}
 </Head>
 

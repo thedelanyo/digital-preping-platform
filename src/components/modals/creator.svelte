@@ -12,9 +12,7 @@
     <span>{truncateString(name, 10)}</span>
   </a> -->
 
-  <a href="/app/prep-{prepId}?creator={creator}" class="ghost">
-    start prepping
-  </a>
+  <a href="/prep-{prepId}?creator={creator}" class="ghost"> start prepping </a>
 </div>
 
 <style>

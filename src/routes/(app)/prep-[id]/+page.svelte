@@ -114,7 +114,7 @@
   </section>
 
   <div class="footer">
-    <a class="ghost" href="/">return</a>
+    <button class="ghost" onclick={() => history.back()}>return</button>
 
     <div>
       <button class="ghost step" type="button" onclick={() => step("L")}>

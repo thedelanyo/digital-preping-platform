@@ -2,8 +2,8 @@
   {
     "id": "data_comm",
     "data": [
-      "Networking",
-      "Data & Signals",
+      "business strategies",
+      "data & signals",
       "OSI & TCP/IP",
       "Error Handling",
       "Transmission",
@@ -18,7 +18,16 @@
   },
   {
     "id": "sys_analysis",
-    "data": []
+    "data": [
+      "business strategies",
+      "feasibility studies",
+      "project management",
+      "data & process modelling",
+      "swot analysis",
+      "strategic planning",
+      "system analysis",
+      "system components"
+    ]
   },
   {
     "id": "comm_skills",

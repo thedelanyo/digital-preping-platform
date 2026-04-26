@@ -1,11 +1,14 @@
 <script lang="ts">
+  import { slugify } from "$lib/helpers/text";
   import Creator from "./creator.svelte";
 
   type Preps = {
     id: string;
-    creator_name: string;
-    creator_id: string;
+    creatorName: string;
+    creatorId: string;
     question: string;
+    topics: string;
+    courseId: string;
   };
 
   type Props = { preps: Preps[] };
@@ -14,12 +17,22 @@
 </script>
 
 <div class="preps">
-  {#each preps as { id, question, creator_name, creator_id }}
-    {@const [, prepId] = id.split(":")}
-    {@const creator = `${creator_id}:${creator_name}`}
-    <div>
-      <a href="/prep-{prepId}?creator={creator}">1. {question}</a>
-      <Creator {prepId} {creator} />
+  {#each preps as prep}
+    {@const [, prepId] = prep.id.split(":")}
+    {@const creator = `${prep.creatorId}:${prep.creatorName}`}
+    <div class="prep">
+      <a href="/prep-{prepId}?creator={creator}"> {prep.question}</a>
+
+      <div class="topics">
+        {#each prep.topics.split(",") as topic}
+          {@const search = encodeURIComponent(topic)}
+          <a href="/preps?course={prep.courseId}&search={search}">
+            #{slugify(topic)}
+          </a>
+        {/each}
+      </div>
+
+      <Creator {creator} {prepId} />
     </div>
   {/each}
 </div>
@@ -31,18 +44,29 @@
     flex-wrap: wrap;
     gap: 2rem;
 
-    & > div {
+    .prep {
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
+      gap: 1rem;
       box-shadow: var(--shadow-inset);
-      padding: 1.5rem 1rem;
+      padding: 1rem;
       border-radius: var(--radius-base);
       font-size: 1.3rem;
       width: 100%;
 
-      a {
+      & > a {
         color: currentColor;
+      }
+
+      .topics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+
+        a {
+          text-transform: lowercase;
+          font-size: 1rem;
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 import { tursoDB as db } from "$db/connections/turso.js";
 import type { Prep } from "$db/schema/preps";
-import { prep_cards as table } from "$db/schema/preps";
+import { prepTable as table } from "$db/schema/preps";
 import { generateId } from "$lib/helpers/id";
 import { trimSpaces } from "$lib/helpers/text.js";
 import { fail } from "@sveltejs/kit";
@@ -21,14 +21,15 @@ export const actions = {
 
     const prep = JSON.parse(prepStr) as Prep;
 
-    const { course_id, course_title, topic } = prep;
+    const { course_id, course_title } = prep;
+    const topics = prep.topics.slice(0, 3);
 
     if (!course_title || !course_id) {
       message = "Course is required";
       return fail(400, { message, state });
     }
 
-    if (!topic) {
+    if (!topics.length) {
       message = "Topic is required";
       return fail(400, { message, state });
     }
@@ -44,7 +45,7 @@ export const actions = {
           answer_code,
           course_id,
           course_title,
-          topic,
+          topics: index === 0 ? topics.join(",") : "",
           creator_id: prep.creator_id,
           creator_name: prep.creator_name,
         };

@@ -9,15 +9,12 @@
   import { arrowLeftIcons, pencilIcons } from "$lib/client/icons.js";
   import { getLocalData, setLocalData } from "$lib/client/local.js";
   import { generateId } from "$lib/helpers/id.js";
-  import { getTopics } from "$lib/helpers/topic.js";
   import type { SubmitFunction } from "@sveltejs/kit";
   import toast from "svelte-hot-french-toast";
 
   let { data, form } = $props();
 
   let { creator } = $derived(data);
-
-  let topics = $derived(getTopics($prep.course_id));
 
   let toggle = $state("");
   let loading = $state(false);
@@ -76,17 +73,6 @@
         {#each courses as { title, id }}
           <option value={id}>
             {title}
-          </option>
-        {/each}
-      </select>
-    </div>
-
-    <div>
-      <select name="topics" id="topics" bind:value={$prep.topic}>
-        <option value=""> -- Select topic for this course -- </option>
-        {#each topics as topic}
-          <option value={topic}>
-            {topic}
           </option>
         {/each}
       </select>

@@ -1,28 +1,35 @@
 import { tursoDB as db } from "$db/connections/turso";
-import { prep_cards as table } from "$db/schema/preps";
+import { prepTable as table } from "$db/schema/preps";
 import { and, eq, like, or, sql } from "drizzle-orm";
 
 const pageSize = 20;
 
-export const getPreps = async (id: string) => {
+export const getPreps = async (groupId: string, search = "") => {
   const selectors = {
     id: table.id,
-    creator_name: table.creator_name,
-    creator_id: table.creator_id,
+    creatorName: table.creator_name,
+    creatorId: table.creator_id,
     question: table.question,
+    topics: table.topics,
+    courseId: table.course_id,
   };
 
+  const searches = or(
+    like(sql`LOWER(${table.topics})`, `%${search.toLowerCase()}%`),
+    like(sql`LOWER(${table.question})`, `%${search.toLowerCase()}%`),
+    like(sql`LOWER(${table.options})`, `%${search.toLowerCase()}%`),
+  );
+
   const queries = or(
-    eq(table.course_id, id),
-    eq(table.creator_id, id),
-    eq(table.topic, id),
+    eq(table.course_id, groupId),
+    eq(table.creator_id, groupId),
   );
 
   try {
     const results = await db
       .select(selectors)
       .from(table)
-      .where(and(like(table.id, `0:%`), queries))
+      .where(and(like(table.id, `0:%`), queries, search ? searches : undefined))
       .orderBy(sql`RANDOM()`)
       .limit(pageSize);
 

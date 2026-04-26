@@ -3,23 +3,26 @@ import { getPreps } from "$lib/server/preps.js";
 import { error } from "@sveltejs/kit";
 
 export const load = async ({ url }) => {
-  let course_id = url.searchParams.get("course");
-  let creator_id = url.searchParams.get("creator");
-  let topic = url.searchParams.get("topic");
+  let courseId = url.searchParams.get("course");
+  let creatorId = url.searchParams.get("creator");
+  let search = url.searchParams.get("search");
 
-  let id = course_id || creator_id || topic || "";
+  let groupId = courseId || creatorId;
   let message = "Sorry, we couldn't find the resource you are looking for";
 
-  !id && error(404, message);
+  if (!groupId) {
+    error(404, message);
+  }
 
-  let title = getCourseTitle(id) || "";
-  title = topic || title;
+  const preps = await getPreps(groupId, search || "");
 
-  const preps = await getPreps(id);
+  if (preps.length === 0) {
+    error(404, message);
+  }
 
-  title = title || preps[0]?.creator_name;
+  const title = search || getCourseTitle(groupId) || preps[0].creatorName;
 
-  preps.length === 0 && error(404, message);
+  console.log({ title });
 
   return { title, preps };
 };

@@ -36,7 +36,7 @@
 
     const success = index === answer_code && selection === answer_code;
 
-    success ? toast.success("Yay!") : toast.error("Oh noo");
+    success ? toast.success("That's right!") : toast.error("Not quite");
 
     $preplet.preps = [...$preplet.preps, { stage: current, selection }];
 

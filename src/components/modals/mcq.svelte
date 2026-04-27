@@ -34,12 +34,12 @@
       return;
     }
 
-    if (opts.some((option) => option.length > 80)) {
+    if (opts.some((option) => option.length > 120)) {
       toast.error("One of the answers is too long");
       return;
     }
 
-    if (title.length > 150) {
+    if (title.length > 200) {
       toast.error("The question is too long");
       return;
     }

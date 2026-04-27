@@ -2,36 +2,51 @@
   {
     "id": "data_comm",
     "data": [
-      "business strategies",
+      "networking",
       "data & signals",
       "OSI & TCP/IP",
-      "Error Handling",
-      "Transmission",
-      "Routing & Switching",
-      "Addressing",
-      "Topologies"
+      "error detection",
+      "transmission",
+      "switching",
+      "routing",
+      "addressing",
+      "topology",
+      "protocols",
+      "internet"
     ]
   },
   {
     "id": "multimedia",
-    "data": []
+    "data": [
+      "nonlinear",
+      "linear",
+      "animation",
+      "delivery methods",
+      "delivery modes",
+      "graphics",
+      "text",
+      "audio",
+      "video",
+      "storyboard",
+      "synthesized media",
+      "discrete media",
+      "continuous media",
+      "media storage"
+    ]
   },
   {
     "id": "sys_analysis",
     "data": [
       "business strategies",
-      "feasibility studies",
+      "feasibility study",
       "project management",
       "data modelling",
       "process modelling",
       "swot analysis",
-      "strategic planning",
       "system analysis",
       "system components",
       "DFD",
-      "cost benefit analysis",
       "information systems",
-      "system analyst",
       "SDLC",
       "OOA",
       "system design",
@@ -40,14 +55,59 @@
   },
   {
     "id": "comm_skills",
-    "data": []
+    "data": [
+      "academic writing",
+      "formal letter",
+      "presentation",
+      "forms of writing",
+      "reading strategies",
+      "paragraph patterns",
+      "communications fundamentals",
+      "referencing",
+      "plagiarism",
+      "argumentation",
+      "intercultural",
+      "thesis",
+      "documentation styles"
+    ]
   },
   {
     "id": "architecture",
-    "data": []
+    "data": [
+      "pipelining",
+      "CPU",
+      "storage",
+      "memory",
+      "hardware",
+      "OS",
+      "performance metrics",
+      "processing",
+      "ISA",
+      "RISC & CISC",
+      "parallelism",
+      "advanced CPU",
+      "I/O systems"
+    ]
   },
   {
     "id": "af_studies",
-    "data": []
+    "data": [
+      "culture",
+      "development",
+      "festivals",
+      "leadership",
+      "moral values",
+      "moral foundations",
+      "westernization",
+      "proverbs",
+      "taboos",
+      "morality",
+      "agriculture",
+      "family",
+      "marriage",
+      "feminism",
+      "gender",
+      "patriarchy"
+    ]
   }
 ]
